@@ -2,26 +2,79 @@
 import { baseUrl } from '@/utils/functions';
 import ArrowKeepScrolling from '@/components/ArrowKeepScrolling.astro';
 const hero = baseUrl('/assets/hero-img.webp');
-const heroAndLogo = baseUrl('/assets/hero-img-with-logo-white.webp')
+const heroAndLogo = baseUrl('/assets/hero-img-with-logo-white.webp');
+const logoWhite = baseUrl('/assets/grand-theft-auto-logo-white-small.svg');
 ---
 
-<section class="hero-1">
-  <section class="container-heros">
-    <img src={hero} alt="Hero">
-    <img src={heroAndLogo} alt="Hero">
-  </section>
+<section class='hero-1'>
+  <div class='super-container-mask'>
+    <section class='container-heros'>
+      <img class='hero-img' src={hero} alt='Hero' />
+      <img class='hero-img-and-logo' src={heroAndLogo} alt='Hero' />
+    </section>
+  </div>
+
   <ArrowKeepScrolling />
 </section>
+
+<script>
+  import { $ } from '@/utils/functions';
+  import gsap from 'gsap';
+  import ScrollTrigger from 'gsap/ScrollTrigger';
+
+  const $containerHeros = $('.container-heros');
+  const $superContainerMask = $('.super-container-mask');
+  const $heroImgAndLogo = $('.hero-img-and-logo');
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      scrub: 0.5
+    }
+  });
+
+  tl.to($containerHeros, {
+    scale: 1
+  }).to(
+    $heroImgAndLogo,
+    {
+      opacity: 0,
+      duration: 2
+    },
+    '<'
+  ).to($superContainerMask, {
+    maskSize: '20vmax',
+    duration: 2
+  }, 0.5).to($containerHeros, {
+    opacity: 0
+  })
+</script>
 
 <style>
   .hero-1 {
     height: 300vh;
     background-color: #000;
+    overflow: hidden;
+  }
+
+  .super-container-mask {
+    background-color: #fff;
+    mask-image: url('/assets/grand-theft-auto-logo-white-small.svg');
+    mask-repeat: no-repeat;
+    mask-position: center 25%;
+    mask-size: 4000vmax;
+    width: 100%;
+    height: 100vh;
+    position: fixed;
   }
 
   .container-heros {
     height: 100vh;
-    position: relative;
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    scale: 1.2;
 
     img {
       position: fixed;
