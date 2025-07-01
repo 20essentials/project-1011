@@ -1,5 +1,6 @@
 ---
 import { baseUrl } from '@/utils/functions';
+import ArrowKeepScrolling from '@/components/ArrowKeepScrolling.astro';
 const hero = baseUrl('/assets/hero-img.webp');
 const heroAndLogo = baseUrl('/assets/hero-img-with-logo-white.webp')
 ---
@@ -9,12 +10,13 @@ const heroAndLogo = baseUrl('/assets/hero-img-with-logo-white.webp')
     <img src={hero} alt="Hero">
     <img src={heroAndLogo} alt="Hero">
   </section>
+  <ArrowKeepScrolling />
 </section>
 
 <style>
   .hero-1 {
     height: 300vh;
-    background-color: orange;
+    background-color: #000;
   }
 
   .container-heros {
