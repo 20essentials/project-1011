@@ -1,0 +1,115 @@
+---
+import { baseUrl } from '@/utils/functions';
+const logoGtaVIwithColor = baseUrl('/assets/vi-logo-gta.webp');
+const play5 = baseUrl('/assets/ps5-logo.svg');
+const xbox = baseUrl('/assets/xbox-logo.svg');
+---
+
+<aside class='coming-container'>
+  <section class='coming-content'>
+    <img src={logoGtaVIwithColor} alt='Logo Gta' class='coming-logo-v6' />
+    <h2>COMING MAY 26 2026</h2>
+    <nav class='container-logos'>
+      <img src={play5} alt='Play 5 Logo' class='play5' />
+      <img src={xbox} alt='Xbox Series Logo' class='xbox' />
+    </nav>
+  </section>
+</aside>
+
+<script>
+  import { $ } from '@/utils/functions';
+  import gsap from 'gsap';
+  import ScrollTrigger from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+  const $comingContainer = $('.coming-container');
+  const $heroImgAndLogo = $('.hero-img-and-logo');
+
+  // const tl = gsap.timeline();
+
+  // tl.to($comingContainer, {
+  //   '--y': '40vmax',
+  //   '--width-gradient': '290vmax',
+  //   '--height-gradient': '290vmax',
+  //   scrollTrigger: {
+  //     trigger: $comingContainer,
+  //     pin: true,
+  //     pinSpacing: false,
+  //     scrub: 0.5,
+  //   }
+  // });
+</script>
+
+<style>
+  .coming-container {
+    height: 100vh;
+    background-color: var(--global-color-1);
+    width: 100%;
+    /* background-color: #f008; */
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    place-content: center;
+    place-items: center;
+    overflow-x: hidden;
+    position: sticky;
+    top: 0;
+    mask-image: radial-gradient(
+      ellipse var(--width-gradient, 50px) var(--height-gradient, 50px) at 50%
+        var(--y-gradient, 90%),
+      black 30%,
+      transparent 35%
+    );
+
+    .coming-content {
+      position: absolute;
+      left: 50%;
+      top: 15%;
+      width: 70%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      place-content: center;
+      place-items: center;
+    }
+
+    .coming-logo-v6 {
+      width: 14.5vmax;
+      margin-bottom: 0.2vmax;
+    }
+
+    h2 {
+      font-family: 'GtaBold';
+      font-size: 7vmax;
+      line-height: 1;
+      width: 43%;
+      text-align: center;
+      background-image: radial-gradient(
+        circle at 50% var(--y, -30vmax),
+        #ffd687 0,
+        #fc5243 50vh,
+        #9d2f6a 90vh,
+        rgba(32, 31, 66, 0) 150vmax
+      );
+      background-clip: text;
+      color: transparent;
+
+      @media (width <= 1111px) {
+        font-size: 5vmax;
+      }
+    }
+
+    .container-logos {
+      display: flex;
+      gap: 2vmax;
+      margin-top: 1.5vmax;
+
+      .play5 {
+        height: 1.5vmax;
+      }
+
+      .xbox {
+        height: 1.5vmax;
+      }
+    }
+  }
+</style>

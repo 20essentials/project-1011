@@ -8,6 +8,10 @@
     'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue';
 }
 
+:root {
+  --global-color-1: #13131b
+}
+
 a,
 button,
 img {
@@ -34,6 +38,8 @@ body {
   height: max-content;
   width: 100%;
   flex-direction: column;
+  overflow-x: hidden;
+  background-color: var(--global-color-1);
 }
 
 h1,
@@ -42,10 +48,39 @@ h2 {
 }
 
 body {
-  --sb-track-color: black;
+  --sb-track-color: var(--global-color-1);
   --sb-thumb-color: #75b1c8;
   --sb-size: 0.7vmax;
 }
+
+@font-face {
+    font-family: ArtDeco;
+    src: url('/assets/ArtDeco.woff') format("woff");
+    font-display: swap;
+    font-weight: 300
+}
+
+@font-face {
+    font-family: GtaBold;
+    src: url('/assets/gta-bold.woff') format("woff");
+    font-display: swap;
+    font-weight: 700
+}
+
+@font-face {
+    font-family: GtaRegular;
+    src: url('/assets/gta-regular.woff') format("woff");
+    font-display: swap;
+    font-weight: 500
+}
+
+@font-face {
+    font-family: GtaNarrow;
+    src: url('/assets/gta-narrow.woff') format("woff");
+    font-display: swap;
+    font-weight: 400
+}
+
 
 /***************************SCROLL***************************/
 

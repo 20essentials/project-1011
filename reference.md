@@ -1,3 +1,3 @@
 - **Reference / Inspiration ⬇️**
   - [Landing gta, teacher Midudev](https://github.com/midudev/landing-gta-vi)
-  - [text](link)
+  - [Inspiration design](https://www.rockstargames.com/VI)
