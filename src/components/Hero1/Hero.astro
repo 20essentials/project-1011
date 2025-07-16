@@ -1,8 +1,8 @@
 ---
 import { baseUrl } from '@/utils/functions';
-import ArrowKeepScrolling from '@/components/ArrowKeepScrolling.astro';
-import ComingContainer from './ComingContainer.astro';
-import ViceCityDescription from './ViceCityDescription.astro';
+import ArrowKeepScrolling from '@/components/Hero1/ArrowKeepScrolling.astro';
+import ComingContainer from '@/components/Hero1/ComingContainer.astro';
+import ViceCityDescription from '@/components/Hero1/ViceCityDescription.astro';
 const hero = baseUrl('/assets/hero-img.webp');
 const heroAndLogo = baseUrl('/assets/hero-img-with-logo-white.webp');
 const logoWhite = baseUrl('/assets/grand-theft-auto-logo-white-small.svg');
@@ -16,6 +16,8 @@ const logoWhite = baseUrl('/assets/grand-theft-auto-logo-white-small.svg');
     </section>
   </div>
   <ComingContainer />
+  <ViceCityDescription />
+
   <ArrowKeepScrolling />
 </section>
 
@@ -28,31 +30,67 @@ const logoWhite = baseUrl('/assets/grand-theft-auto-logo-white-small.svg');
   const $superContainerMask = $('.super-container-mask');
   const $heroImgAndLogo = $('.hero-img-and-logo');
   const $comingContainer = $('.coming-container');
+  const $viceCityDescription = $('.vice-city-description');
 
   const tl = gsap.timeline({
     scrollTrigger: {
       scrub: 0.5,
       pin: true,
-      toggleActions: 'play none play none'
+      pinSpacing: false
     }
   });
 
-  tl.to($containerHeros, { scale: 1, opacity: 1 })
-    .to($heroImgAndLogo, { opacity: 0 }, '<')
+  tl.to($containerHeros, { scale: 1, opacity: 1 }, 0)
+    .to($heroImgAndLogo, { opacity: 0 })
     .to($superContainerMask, { maskSize: '15vmax', duration: 1 }, 0.1)
     .to($containerHeros, { opacity: 0 }, 0.75)
-    .to($comingContainer, {
-      '--y': '40vmax',
-      '--width-gradient': '290vmax',
-      '--height-gradient': '290vmax',
-    }, 1.1);
+    .to(
+      $comingContainer,
+      {
+        '--y-position-gradient': '40vmax',
+        '--width-gradient': '290vmax',
+        '--height-gradient': '290vmax',
+      },
+      1.1
+    )
+    .to(
+      $superContainerMask,
+      {
+        opacity: 0,
+        duration: 0.5
+      },
+      0.9
+    )
+    .to(
+      $comingContainer,
+      {
+        '--y-gradient': '-200%',
+        duration: 0.5,
+        onEnterBack: () => {
+          console.log('volvio');
+        }
+      },
+      1.4
+    )
+    .to($viceCityDescription, {
+      '--y-position-gradient': '40vmax',
+      '--width-gradient': '600vmax',
+      '--height-gradient': '600vmax',
+      //cambiar a 600 en mobile
+    }, 1.8)
+    .to(
+      '.vice-city-description-son',
+      {
+        scale: 0.95
+      },
+      '<'
+    );
 </script>
 
 <style>
   .hero-1 {
-    height: 250vh;
+    height: 600vh;
     background-color: var(--global-color-1);
-    /* padding-top: 150vh; */
   }
 
   .super-container-mask {
@@ -75,7 +113,7 @@ const logoWhite = baseUrl('/assets/grand-theft-auto-logo-white-small.svg');
       scale: 1.2;
 
       img {
-        position: fixed;
+        position: sticky;
         inset: 0;
         width: 100%;
         height: 100%;

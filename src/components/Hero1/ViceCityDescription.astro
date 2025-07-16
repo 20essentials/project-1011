@@ -1,0 +1,94 @@
+<section class='vice-city-description'>
+  <h2 class='vice-city-description-son'>Vice City, USA.</h2>
+  <p class='vice-city-description-son'>
+    Jason and Lucia have always known the deck is stacked against them. But when
+    an easy score goes wrong, they find themselves on the darkest side of the
+    sunniest place in America, in the middle of a criminal conspiracy stretching
+    across the state of Leonida — forced to rely on each other more than ever if
+    they want to make it out alive.
+  </p>
+</section>
+
+<!-- <script>
+  import { $ } from '@/utils/functions';
+  import gsap from 'gsap';
+  import ScrollTrigger from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+  const $viceCityDescription = $('.vice-city-description');
+  const $comingContainer = $('.coming-container') as HTMLElement;
+  const amTl = gsap.timeline({
+    scrollTrigger: {
+      trigger: $viceCityDescription,
+      scrub: 0.5,
+      markers: true
+    }
+  });
+
+  amTl
+    .to($viceCityDescription, {
+      '--y-position-gradient': '40vmax',
+      '--width-gradient': '290vmax',
+      '--height-gradient': '290vmax'
+      //cambiar a 600 en mobile
+    })
+    .to(
+      '.vice-city-description-son',
+      {
+        scale: 1
+      },
+      '<'
+    );
+</script>
+ -->
+<style>
+  .vice-city-description {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: var(--global-color-1);
+    /* background-color: orange; */
+    display: flex;
+    flex-wrap: wrap;
+    place-content: center;
+    padding: 3vmax;
+    mask-image: radial-gradient(
+      ellipse var(--width-gradient, 0vmax) var(--height-gradient, 0vmax) at 50%
+        var(--y-gradient, 150%),
+      black 30%,
+      transparent 35%
+    );
+
+    h2,
+    p {
+      font-family: 'GtaBold';
+      line-height: 1;
+      text-align: center;
+      scale: 1.05;
+      background-image: radial-gradient(
+        circle at 50% var(--y-position-gradient, -30vmax),
+        #ffd687 0,
+        #fc5243 50vh,
+        #9d2f6a 90vh,
+        rgba(32, 31, 66, 0) 150vmax
+      );
+      background-clip: text;
+      color: transparent;
+      width: 60%;
+      text-align: left;
+
+      @media (width <= 1111px) and (orientation: portrait) {
+        width: 80%;
+      }
+    }
+
+    h2 {
+      font-size: 3.4vmax;
+      margin-bottom: 1.2vmax;
+    }
+
+    p {
+      font-size: 2.2vmax;
+    }
+  }
+</style>

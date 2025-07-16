@@ -16,35 +16,11 @@ const xbox = baseUrl('/assets/xbox-logo.svg');
   </section>
 </aside>
 
-<script>
-  import { $ } from '@/utils/functions';
-  import gsap from 'gsap';
-  import ScrollTrigger from 'gsap/ScrollTrigger';
-  gsap.registerPlugin(ScrollTrigger);
-  const $comingContainer = $('.coming-container');
-  const $heroImgAndLogo = $('.hero-img-and-logo');
-
-  // const tl = gsap.timeline();
-
-  // tl.to($comingContainer, {
-  //   '--y': '40vmax',
-  //   '--width-gradient': '290vmax',
-  //   '--height-gradient': '290vmax',
-  //   scrollTrigger: {
-  //     trigger: $comingContainer,
-  //     pin: true,
-  //     pinSpacing: false,
-  //     scrub: 0.5,
-  //   }
-  // });
-</script>
-
 <style>
   .coming-container {
     height: 100vh;
     background-color: var(--global-color-1);
     width: 100%;
-    /* background-color: #f008; */
     z-index: 5;
     display: flex;
     flex-direction: column;
@@ -54,7 +30,7 @@ const xbox = baseUrl('/assets/xbox-logo.svg');
     position: sticky;
     top: 0;
     mask-image: radial-gradient(
-      ellipse var(--width-gradient, 50px) var(--height-gradient, 50px) at 50%
+      ellipse var(--width-gradient, 0px) var(--height-gradient, 0px) at 50%
         var(--y-gradient, 90%),
       black 30%,
       transparent 35%
@@ -73,8 +49,9 @@ const xbox = baseUrl('/assets/xbox-logo.svg');
     }
 
     .coming-logo-v6 {
-      width: 14.5vmax;
-      margin-bottom: 0.2vmax;
+      width: 15vmax;
+      margin-bottom: 0.3vmax;
+      transform: translateY(-0.5vmax);
     }
 
     h2 {
@@ -84,7 +61,7 @@ const xbox = baseUrl('/assets/xbox-logo.svg');
       width: 43%;
       text-align: center;
       background-image: radial-gradient(
-        circle at 50% var(--y, -30vmax),
+        circle at 50% var(--y-position-gradient, -30vmax),
         #ffd687 0,
         #fc5243 50vh,
         #9d2f6a 90vh,
@@ -93,8 +70,9 @@ const xbox = baseUrl('/assets/xbox-logo.svg');
       background-clip: text;
       color: transparent;
 
-      @media (width <= 1111px) {
+      @media (width <= 900px) and (orientation: portrait){
         font-size: 5vmax;
+        width: 70%;
       }
     }
 
