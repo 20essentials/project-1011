@@ -3,6 +3,7 @@ import { baseUrl } from '@/utils/functions';
 import ArrowKeepScrolling from '@/components/Hero1/ArrowKeepScrolling.astro';
 import ComingContainer from '@/components/Hero1/ComingContainer.astro';
 import ViceCityDescription from '@/components/Hero1/ViceCityDescription.astro';
+import MaleteraEnding from './MaleteraEnding.astro';
 const hero = baseUrl('/assets/hero-img.webp');
 const heroAndLogo = baseUrl('/assets/hero-img-with-logo-white.webp');
 const logoWhite = baseUrl('/assets/grand-theft-auto-logo-white-small.svg');
@@ -17,12 +18,13 @@ const logoWhite = baseUrl('/assets/grand-theft-auto-logo-white-small.svg');
   </div>
   <ComingContainer />
   <ViceCityDescription />
+  <MaleteraEnding />
 
   <ArrowKeepScrolling />
 </section>
 
 <script>
-  import { $ } from '@/utils/functions';
+  import { $, baseUrl } from '@/utils/functions';
   import gsap from 'gsap';
   import ScrollTrigger from 'gsap/ScrollTrigger';
   gsap.registerPlugin(ScrollTrigger);
@@ -31,6 +33,50 @@ const logoWhite = baseUrl('/assets/grand-theft-auto-logo-white-small.svg');
   const $heroImgAndLogo = $('.hero-img-and-logo');
   const $comingContainer = $('.coming-container');
   const $viceCityDescription = $('.vice-city-description');
+  const $maleteraEnding = $('.maletera-ending');
+  const $keepScrolling = $('.keep-scrolling');
+
+  /*************************************ENDING */
+  const canvas = $('.maletera-ending') as HTMLCanvasElement;
+  const context = canvas.getContext('2d') as CanvasRenderingContext2D;
+  canvas.width = 1892;
+  canvas.height = 890;
+  const frameCount = 89;
+  const currentFrame = (index: number) =>
+    baseUrl(
+      `/assets/frames-final/frame-001-ending_${(index + 1).toString().padStart(6, '0')}.jpg`
+    );
+
+  const images: HTMLImageElement[] = [];
+  const airpods = {
+    frame: 0
+  };
+
+  for (let i = 0; i < frameCount; i++) {
+    const img = document.createElement('img');
+    img.src = currentFrame(i);
+    images.push(img);
+  }
+
+  // gsap.to(airpods, {
+  //   frame: frameCount - 1,
+  //   snap: 'frame',
+  //   ease: 'none',
+  //   scrollTrigger: {
+  //     scrub: 0.5,
+  //     trigger: canvas
+  //   },
+  //   onUpdate: render
+  // });
+
+  images[0].onload = render;
+
+  function render() {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.drawImage(images[airpods.frame], 0, 0);
+  }
+
+  /*************************************ENDING */
 
   const tl = gsap.timeline({
     scrollTrigger: {
@@ -49,7 +95,7 @@ const logoWhite = baseUrl('/assets/grand-theft-auto-logo-white-small.svg');
       {
         '--y-position-gradient': '40vmax',
         '--width-gradient': '290vmax',
-        '--height-gradient': '290vmax',
+        '--height-gradient': '290vmax'
       },
       1.1
     )
@@ -72,24 +118,52 @@ const logoWhite = baseUrl('/assets/grand-theft-auto-logo-white-small.svg');
       },
       1.4
     )
-    .to($viceCityDescription, {
-      '--y-position-gradient': '40vmax',
-      '--width-gradient': '600vmax',
-      '--height-gradient': '600vmax',
-      //cambiar a 600 en mobile
-    }, 1.8)
+    .to(
+      $viceCityDescription,
+      {
+        '--y-position-gradient': '40vmax',
+        '--width-gradient': '600vmax',
+        '--height-gradient': '600vmax'
+        //cambiar a 600 en mobile
+      },
+      1.8
+    )
     .to(
       '.vice-city-description-son',
       {
         scale: 0.95
       },
       '<'
+    )
+    .to(
+      [$viceCityDescription, $keepScrolling],
+      {
+        opacity: 0
+      },
+      2.0
+    )
+    .to(
+      $maleteraEnding,
+      {
+        opacity: 1
+      },
+      2.3
+    )
+    .to(
+      airpods,
+      {
+        frame: frameCount - 1,
+        snap: 'frame',
+        ease: 'none',
+        onUpdate: render
+      },
+      2.3
     );
 </script>
 
 <style>
   .hero-1 {
-    height: 600vh;
+    height: 650vh;
     background-color: var(--global-color-1);
   }
 
