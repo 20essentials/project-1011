@@ -1,0 +1,31 @@
+---
+import { baseUrl } from '@/utils/functions';
+const upImage = baseUrl('/assets/up.webp');
+const underImage = baseUrl('/assets/under.avif');
+---
+
+<section class='am-letrero'>
+  <img class='under am-img am-img-letrero' src={underImage} alt='Under Image' />
+  <img class='up am-img am-img-letrero' src={upImage} alt='Up Image' />
+</section>
+
+<style>
+  .am-letrero {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    overflow: hidden;
+
+    .am-img {
+      width: 48vmax;
+      height: 28vmax;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-359deg) scale(0);
+    }
+  }
+</style>

@@ -4,6 +4,7 @@ import ArrowKeepScrolling from '@/components/Hero1/ArrowKeepScrolling.astro';
 import ComingContainer from '@/components/Hero1/ComingContainer.astro';
 import ViceCityDescription from '@/components/Hero1/ViceCityDescription.astro';
 import MaleteraEnding from './MaleteraEnding.astro';
+import Letrero from './Letrero.astro';
 const hero = baseUrl('/assets/hero-img.webp');
 const heroAndLogo = baseUrl('/assets/hero-img-with-logo-white.webp');
 const logoWhite = baseUrl('/assets/grand-theft-auto-logo-white-small.svg');
@@ -19,8 +20,8 @@ const logoWhite = baseUrl('/assets/grand-theft-auto-logo-white-small.svg');
   <ComingContainer />
   <ViceCityDescription />
   <MaleteraEnding />
-
   <ArrowKeepScrolling />
+  <Letrero />
 </section>
 
 <script>
@@ -35,6 +36,8 @@ const logoWhite = baseUrl('/assets/grand-theft-auto-logo-white-small.svg');
   const $viceCityDescription = $('.vice-city-description');
   const $maleteraEnding = $('.maletera-ending');
   const $keepScrolling = $('.keep-scrolling');
+  const $amLetrero = $('.am-letrero');
+  const $amImgLetrero = $('.am-img-letrero');
 
   /*************************************ENDING */
   const canvas = $('.maletera-ending') as HTMLCanvasElement;
@@ -57,17 +60,6 @@ const logoWhite = baseUrl('/assets/grand-theft-auto-logo-white-small.svg');
     img.src = currentFrame(i);
     images.push(img);
   }
-
-  // gsap.to(airpods, {
-  //   frame: frameCount - 1,
-  //   snap: 'frame',
-  //   ease: 'none',
-  //   scrollTrigger: {
-  //     scrub: 0.5,
-  //     trigger: canvas
-  //   },
-  //   onUpdate: render
-  // });
 
   images[0].onload = render;
 
@@ -124,7 +116,6 @@ const logoWhite = baseUrl('/assets/grand-theft-auto-logo-white-small.svg');
         '--y-position-gradient': '40vmax',
         '--width-gradient': '600vmax',
         '--height-gradient': '600vmax'
-        //cambiar a 600 en mobile
       },
       1.8
     )
@@ -158,7 +149,18 @@ const logoWhite = baseUrl('/assets/grand-theft-auto-logo-white-small.svg');
         onUpdate: render
       },
       2.3
-    );
+    )
+    .to(
+      $amLetrero,
+      {
+        opacity: 1
+      },
+      2.8
+    )
+    .to('.am-img-letrero', {
+      scale: 1,
+      rotation: 364
+    }, 2.81);
 </script>
 
 <style>
