@@ -12,6 +12,11 @@
   --global-color-1: #13131b;
 }
 
+html,
+body {
+  overscroll-behavior: contain;
+}
+
 a,
 button,
 img {
