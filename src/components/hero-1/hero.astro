@@ -82,7 +82,12 @@ const logoWhite = baseUrl('/assets/grand-theft-auto-logo-white-small.svg');
 
   tl.to($containerHeros, { scale: 1, opacity: 1 }, 0)
     .to($heroImgAndLogo, { opacity: 0 })
-    .to($superContainerMask, { maskSize: '15vmax', duration: 1 }, 0.1)
+    .fromTo(
+      $superContainerMask,
+      { maskSize: '4000vmax' },
+      { maskSize: '15vmax', duration: 1 },
+      0.1
+    )
     .to($containerHeros, { opacity: 0 }, 0.75)
     .to(
       $comingContainer,
