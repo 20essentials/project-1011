@@ -1,4 +1,6 @@
 ---
+const title = 'GTA Landing Practice'
+import { Font } from 'astro:assets';
 import '@/styles/global.css';
 import { baseUrl } from '@/utils/functions';
 const favicon = baseUrl('/assets/favicon.webp');
@@ -9,19 +11,15 @@ const favicon = baseUrl('/assets/favicon.webp');
   <head>
     <meta charset='UTF-8' />
     <meta name='viewport' content='width=device-width' />
+    <Font cssVariable='--font-art-deco' preload />
+    <Font cssVariable='--font-gta-bold' preload />
+    <Font cssVariable='--font-gta-regular' preload />
+    <Font cssVariable='--font-gta-narrow' preload />
     <link rel='icon' type='image/svg+xml' href={favicon} />
     <meta name='google' content='notranslate' />
-    <title>GTA Landing Practice</title>
+    <title>{title}</title>
   </head>
   <body>
     <slot />
   </body>
 </html>
-
-<style></style>
-
-<!-- <script>
-  window.addEventListener('resize', e => {
-    document.title = `${window.innerWidth}`;
-  });
-</script> -->

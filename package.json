@@ -7,11 +7,16 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "deploy": "pnpm gh-pages -d dist/"
+    "deploy": "pnpm build && pnpm gh-pages -d dist/"
   },
   "dependencies": {
-    "astro": "5.8.0",
-    "gsap": "3.13.0"
+    "@astrojs/react": "7.0.1",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "astro": "7.3.6",
+    "gsap": "3.13.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
   },
   "devDependencies": {
     "gh-pages": "6.3.0"

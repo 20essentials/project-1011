@@ -1,7 +1,10 @@
-export const $ = (el: string) => document.querySelector(el);
-export const $$ = (el: string) => document.querySelectorAll(el);
+export const $ = <T extends Element = HTMLElement>(el: string): T =>
+  document.querySelector<T>(el) as T;
 
-export function baseUrl(path: string) {
-  // return path;
-  return new URL(path.replace(/^\/+/, ""), import.meta.env.SITE).toString();
-}
+export const $$ = <T extends Element = HTMLElement>(el: string): T[] => [
+  ...document.querySelectorAll<T>(el)
+];
+
+export const baseUrl = (path: string) => {
+  return new URL(path.replace(/^\/+/, ''), import.meta.env.SITE).toString();
+};

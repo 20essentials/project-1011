@@ -1,5 +1,8 @@
 # build output
 dist/
+.opencode/
+AGENTS.md
+
 
 # generated types
 .astro/
@@ -12,6 +15,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+pnpm-lock.yaml
 
 # environment variables
 .env
@@ -22,3 +26,6 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# etc
+.vscode/
