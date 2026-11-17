@@ -105,9 +105,10 @@ const gtaLogoMask = baseUrl('/assets/grand-theft-auto-logo-white-small.svg')
 
   const tl = gsap.timeline({
     scrollTrigger: {
+      trigger: '.hero',
+      start: 'top top',
+      end: 'bottom bottom',
       scrub: 0.5,
-      pin: true,
-      pinSpacing: false,
       onUpdate: (self) => {
         if (self.progress > 0.5 && !urgent) {
           urgent = true
