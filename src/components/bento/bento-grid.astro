@@ -1,0 +1,177 @@
+---
+import { baseUrl } from '@/utils/helpers'
+
+type BentoSpan = 'big' | 'wide' | 'single'
+
+type BentoVideo = {
+  src: string
+  span: BentoSpan
+}
+
+// Order matters: the grid is packed with `dense` flow.
+// Sequence fills a 4x6 layout: wide, 4 singles, big (2x2),
+// 4 singles, wide, 6 singles, wide.
+const videos: BentoVideo[] = [
+  { src: baseUrl('/assets/videos/DfyuScxBX5c-1.mp4'), span: 'wide' },
+  { src: baseUrl('/assets/videos/Dd7vFuTNrNa-1.mp4'), span: 'single' },
+  { src: baseUrl('/assets/videos/DfqvEQkAFgh-1.mp4'), span: 'single' },
+  { src: baseUrl('/assets/videos/DelHFp3t76P-1.mp4'), span: 'single' },
+  { src: baseUrl('/assets/videos/DctC1KBxpll-1.mp4'), span: 'single' },
+  { src: baseUrl('/assets/videos/DdwlpTchDho-1.mp4'), span: 'big' },
+  { src: baseUrl('/assets/videos/DfyuScxBX5c-2.mp4'), span: 'single' },
+  { src: baseUrl('/assets/videos/Dd7vFuTNrNa-2.mp4'), span: 'single' },
+  { src: baseUrl('/assets/videos/DfqvEQkAFgh-2.mp4'), span: 'single' },
+  { src: baseUrl('/assets/videos/DelHFp3t76P-2.mp4'), span: 'single' },
+  { src: baseUrl('/assets/videos/DdwlpTchDho-2.mp4'), span: 'wide' },
+  { src: baseUrl('/assets/videos/DctC1KBxpll-2.mp4'), span: 'single' },
+  { src: baseUrl('/assets/videos/DfyuScxBX5c-3.mp4'), span: 'single' },
+  { src: baseUrl('/assets/videos/Dd7vFuTNrNa-3.mp4'), span: 'single' },
+  { src: baseUrl('/assets/videos/DfqvEQkAFgh-3.mp4'), span: 'single' },
+  { src: baseUrl('/assets/videos/DelHFp3t76P-3.mp4'), span: 'single' },
+  { src: baseUrl('/assets/videos/DfstClxhEQM-1.mp4'), span: 'single' },
+  { src: baseUrl('/assets/videos/DfstClxhEQM-2.mp4'), span: 'wide' },
+]
+---
+
+<section class="bento">
+  <div class="bento-inner">
+    <header class="bento-header">
+      <h2>Vice City, in motion.</h2>
+      <p>Transmisiones desde toda Leonida.</p>
+    </header>
+    <div class="bento-grid">
+      {videos.map((video) => (
+        <div class={`bento-tile bento-tile--${video.span}`}>
+          <video
+            src={video.src}
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="metadata"
+          />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  const videos =
+    document.querySelectorAll<HTMLVideoElement>('.bento-tile video')
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        const video = entry.target as HTMLVideoElement
+        if (entry.isIntersecting) {
+          void video.play().catch(() => {})
+        } else {
+          video.pause()
+        }
+      }
+    },
+    { threshold: 0.2 },
+  )
+
+  for (const video of videos) {
+    observer.observe(video)
+  }
+</script>
+
+<style>
+  .bento {
+    position: relative;
+    z-index: 5;
+    background-color: var(--global-color-1);
+    padding-block: clamp(3.5rem, 5vh, 6rem) clamp(2.5rem, 5vh, 3.5rem);
+    padding-inline: clamp(1.25rem, 3vw, 3rem);
+  }
+
+  .bento-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+
+  .bento-header {
+    margin-bottom: clamp(1.5rem, 3vh, 2.5rem);
+
+    h2 {
+      font-family: var(--font-gta-bold), sans-serif;
+      font-size: clamp(1.6rem, 2.2vw, 2.4rem);
+      line-height: 1.05;
+      width: fit-content;
+      background-image: linear-gradient(
+        92deg,
+        #ffd687 0%,
+        #fc5243 55%,
+        #9d2f6a 100%
+      );
+      background-clip: text;
+      color: transparent;
+    }
+
+    p {
+      margin-top: 0.5rem;
+      font-size: clamp(0.95rem, 1.1vw, 1.15rem);
+      color: rgba(255, 255, 255, 0.4);
+    }
+  }
+
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: clamp(150px, 15vw, 240px);
+    grid-auto-flow: dense;
+    gap: clamp(10px, 1vw, 16px);
+  }
+
+  .bento-tile {
+    position: relative;
+    overflow: hidden;
+    border-radius: clamp(12px, 1.1vw, 18px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background-color: #0c0c13;
+    transition: border-color 0.4s ease;
+
+    video {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: scale 0.6s ease;
+    }
+  }
+
+  .bento-tile:hover {
+    border-color: rgba(255, 255, 255, 0.22);
+
+    video {
+      scale: 1.06;
+    }
+  }
+
+  .bento-tile--big {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  .bento-tile--wide {
+    grid-column: span 2;
+  }
+
+  @media (width <= 900px) {
+    .bento-grid {
+      grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: clamp(140px, 30vw, 220px);
+    }
+
+    .bento-tile--wide {
+      grid-column: span 2;
+    }
+
+    .bento-tile:last-child {
+      grid-column: 1 / -1;
+    }
+  }
+</style>
