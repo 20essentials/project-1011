@@ -1,21 +1,21 @@
 ---
-import { baseUrl } from '@/utils/functions';
-import ArrowKeepScrolling from '@/components/hero-1/arrow-keep-scrolling.astro';
-import ComingContainer from '@/components/hero-1/coming-container.astro';
-import ViceCityDescription from '@/components/hero-1/vice-city-description.astro';
-import MaleteraEnding from '@/components/hero-1/maletera-ending.astro';
-import Letrero from '@/components/hero-1/letrero.astro';
-import Outro from '@/components/hero-1/outro.astro';
-const hero = baseUrl('/assets/hero-img.webp');
-const heroAndLogo = baseUrl('/assets/hero-img-with-logo-white.webp');
-const logoWhite = baseUrl('/assets/grand-theft-auto-logo-white-small.svg');
+import { baseUrl } from '@/utils/functions'
+import ArrowKeepScrolling from '@/components/hero-1/arrow-keep-scrolling.astro'
+import ComingContainer from '@/components/hero-1/coming-container.astro'
+import ViceCityDescription from '@/components/hero-1/vice-city-description.astro'
+import MaleteraEnding from '@/components/hero-1/maletera-ending.astro'
+import Letrero from '@/components/hero-1/letrero.astro'
+import Outro from '@/components/hero-1/outro.astro'
+const hero = baseUrl('/assets/hero-img.webp')
+const heroAndLogo = baseUrl('/assets/hero-img-with-logo-white.webp')
+const logoWhite = baseUrl('/assets/grand-theft-auto-logo-white-small.svg')
 ---
 
-<section class='hero-1'>
-  <div class='super-container-mask'>
-    <section class='container-heros'>
-      <img class='hero-img' src={hero} alt='Hero' />
-      <img class='hero-img-and-logo' src={heroAndLogo} alt='Hero' />
+<section class="hero-1">
+  <div class="super-container-mask">
+    <section class="container-heros">
+      <img class="hero-img" src={hero} alt="Hero" />
+      <img class="hero-img-and-logo" src={heroAndLogo} alt="Hero" />
     </section>
   </div>
   <ComingContainer />
@@ -27,47 +27,47 @@ const logoWhite = baseUrl('/assets/grand-theft-auto-logo-white-small.svg');
 </section>
 
 <script>
-  import { $, baseUrl } from '@/utils/functions';
-  import gsap from 'gsap';
-  import ScrollTrigger from 'gsap/ScrollTrigger';
-  gsap.registerPlugin(ScrollTrigger);
-  const $containerHeros = $('.container-heros');
-  const $superContainerMask = $('.super-container-mask');
-  const $heroImgAndLogo = $('.hero-img-and-logo');
-  const $comingContainer = $('.coming-container');
-  const $viceCityDescription = $('.vice-city-description');
-  const $maleteraEnding = $('.maletera-ending');
-  const $keepScrolling = $('.keep-scrolling');
-  const $amLetrero = $('.am-letrero');
-  const $amOutro = $('.am-outro');
+  import { $, baseUrl } from '@/utils/functions'
+  import gsap from 'gsap'
+  import ScrollTrigger from 'gsap/ScrollTrigger'
+  gsap.registerPlugin(ScrollTrigger)
+  const $containerHeros = $('.container-heros')
+  const $superContainerMask = $('.super-container-mask')
+  const $heroImgAndLogo = $('.hero-img-and-logo')
+  const $comingContainer = $('.coming-container')
+  const $viceCityDescription = $('.vice-city-description')
+  const $maleteraEnding = $('.maletera-ending')
+  const $keepScrolling = $('.keep-scrolling')
+  const $amLetrero = $('.am-letrero')
+  const $amOutro = $('.am-outro')
 
   /*************************************ENDING */
-  const canvas = $('.maletera-ending') as HTMLCanvasElement;
-  const context = canvas.getContext('2d') as CanvasRenderingContext2D;
-  canvas.width = 1892;
-  canvas.height = 890;
-  const frameCount = 89;
+  const canvas = $('.maletera-ending') as HTMLCanvasElement
+  const context = canvas.getContext('2d') as CanvasRenderingContext2D
+  canvas.width = 1892
+  canvas.height = 890
+  const frameCount = 89
   const currentFrame = (index: number) =>
     baseUrl(
-      `/assets/frames-final/frame-001-ending_${(index + 1).toString().padStart(6, '0')}.jpg`
-    );
+      `/assets/frames-final/frame-001-ending_${(index + 1).toString().padStart(6, '0')}.jpg`,
+    )
 
-  const images: HTMLImageElement[] = [];
+  const images: HTMLImageElement[] = []
   const airpods = {
-    frame: 0
-  };
-
-  for (let i = 0; i < frameCount; i++) {
-    const img = document.createElement('img');
-    img.src = currentFrame(i);
-    images.push(img);
+    frame: 0,
   }
 
-  images[0].onload = render;
+  for (let i = 0; i < frameCount; i++) {
+    const img = document.createElement('img')
+    img.src = currentFrame(i)
+    images.push(img)
+  }
+
+  images[0].onload = render
 
   function render() {
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    context.drawImage(images[airpods.frame], 0, 0);
+    context.clearRect(0, 0, canvas.width, canvas.height)
+    context.drawImage(images[airpods.frame], 0, 0)
   }
 
   /*************************************ENDING */
@@ -76,9 +76,9 @@ const logoWhite = baseUrl('/assets/grand-theft-auto-logo-white-small.svg');
     scrollTrigger: {
       scrub: 0.5,
       pin: true,
-      pinSpacing: false
-    }
-  });
+      pinSpacing: false,
+    },
+  })
 
   tl.to($containerHeros, { scale: 1, opacity: 1 }, 0)
     .to($heroImgAndLogo, { opacity: 0 })
@@ -86,7 +86,7 @@ const logoWhite = baseUrl('/assets/grand-theft-auto-logo-white-small.svg');
       $superContainerMask,
       { maskSize: '4000vmax' },
       { maskSize: '15vmax', duration: 1 },
-      0.1
+      0.1,
     )
     .to($containerHeros, { opacity: 0 }, 0.75)
     .to(
@@ -94,17 +94,17 @@ const logoWhite = baseUrl('/assets/grand-theft-auto-logo-white-small.svg');
       {
         '--y-position-gradient': '40vmax',
         '--width-gradient': '290vmax',
-        '--height-gradient': '290vmax'
+        '--height-gradient': '290vmax',
       },
-      1.1
+      1.1,
     )
     .to(
       $superContainerMask,
       {
         opacity: 0,
-        duration: 0.5
+        duration: 0.5,
       },
-      0.9
+      0.9,
     )
     .to(
       $comingContainer,
@@ -112,47 +112,51 @@ const logoWhite = baseUrl('/assets/grand-theft-auto-logo-white-small.svg');
         '--y-gradient': '-200%',
         duration: 0.5,
       },
-      1.4
+      1.4,
     )
     .to(
       $viceCityDescription,
       {
         '--y-position-gradient': '40vmax',
         '--width-gradient': '600vmax',
-        '--height-gradient': '600vmax'
+        '--height-gradient': '600vmax',
       },
-      1.8
+      1.8,
     )
-    .to($amOutro,{
-      opacity: 1
-    }, 1.2)
+    .to(
+      $amOutro,
+      {
+        opacity: 1,
+      },
+      1.2,
+    )
     .to(
       [$comingContainer, $amOutro],
       {
-        opacity: 0
+        opacity: 0,
       },
-      1.5
+      1.5,
     )
     .to(
       '.vice-city-description-son',
       {
-        scale: 0.95
+        scale: 0.95,
       },
-      '<'
+      '<',
     )
     .to(
       [$viceCityDescription, $keepScrolling],
       {
-        opacity: 0
+        opacity: 0,
       },
-      2.0
+      2.0,
     )
     .to(
       $maleteraEnding,
       {
-        opacity: 1
+        opacity: 1,
       },
-      2.3
+      2.3,
     )
     .to(
       airpods,
@@ -160,21 +164,25 @@ const logoWhite = baseUrl('/assets/grand-theft-auto-logo-white-small.svg');
         frame: frameCount - 1,
         snap: 'frame',
         ease: 'none',
-        onUpdate: render
+        onUpdate: render,
       },
-      2.3
+      2.3,
     )
     .to(
       $amLetrero,
       {
-        opacity: 1
+        opacity: 1,
       },
-      2.7
+      2.7,
     )
-    .to('.am-img-letrero', {
-      scale: 1,
-      rotation: 364
-    }, 2.7);
+    .to(
+      '.am-img-letrero',
+      {
+        scale: 1,
+        rotation: 364,
+      },
+      2.7,
+    )
 </script>
 
 <style>

@@ -1,17 +1,17 @@
 ---
-import { baseUrl } from '@/utils/functions';
-const logoGtaVIwithColor = baseUrl('/assets/vi-logo-gta.webp');
-const play5 = baseUrl('/assets/ps5-logo.svg');
-const xbox = baseUrl('/assets/xbox-logo.svg');
+import { baseUrl } from '@/utils/functions'
+const logoGtaVIwithColor = baseUrl('/assets/vi-logo-gta.webp')
+const play5 = baseUrl('/assets/ps5-logo.svg')
+const xbox = baseUrl('/assets/xbox-logo.svg')
 ---
 
-<aside class='coming-container'>
-  <section class='coming-content'>
-    <img src={logoGtaVIwithColor} alt='Logo Gta' class='coming-logo-v6' />
+<aside class="coming-container">
+  <section class="coming-content">
+    <img src={logoGtaVIwithColor} alt="Logo Gta" class="coming-logo-v6" />
     <h2>COMING MAY 26 2026</h2>
-    <nav class='container-logos'>
-      <img src={play5} alt='Play 5 Logo' class='play5' />
-      <img src={xbox} alt='Xbox Series Logo' class='xbox' />
+    <nav class="container-logos">
+      <img src={play5} alt="Play 5 Logo" class="play5" />
+      <img src={xbox} alt="Xbox Series Logo" class="xbox" />
     </nav>
   </section>
 </aside>
@@ -70,7 +70,7 @@ const xbox = baseUrl('/assets/xbox-logo.svg');
       background-clip: text;
       color: transparent;
 
-      @media (width <= 900px) and (orientation: portrait){
+      @media (width <= 900px) and (orientation: portrait) {
         font-size: 5vmax;
         width: 70%;
       }

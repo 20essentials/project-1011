@@ -43,9 +43,9 @@ valores** (WPT actualizado en enero 2026:
 cambio entre 2025 y 2026:
 
 | Año  | `getComputedStyle(el).maskSize` |
-|------|----------------------------------|
-| 2025 | `"66734.5px"`                    |
-| 2026 | `"66734.5px auto"`               |
+| ---- | ------------------------------- |
+| 2025 | `"66734.5px"`                   |
+| 2026 | `"66734.5px auto"`              |
 
 GSAP, al crear el tween con `.to($el, { maskSize: '15vmax' })`, lee el valor
 computado como inicio y toma como "unidad" todo lo que va después del número:
@@ -76,7 +76,7 @@ tl.fromTo(
   $superContainerMask,
   { maskSize: '4000vmax' },
   { maskSize: '15vmax', duration: 1 },
-  0.1
+  0.1,
 )
 ```
 
