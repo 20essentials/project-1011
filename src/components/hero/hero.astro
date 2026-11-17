@@ -74,20 +74,33 @@ const gtaLogoMask = baseUrl('/assets/grand-theft-auto-logo-white-small.svg')
     ctx.drawImage(frames[frameState.frame], 0, 0)
   }
 
-  // First frame right away so the canvas can paint; the rest are downloaded
-  // on demand once the scroll approaches the ending (see scrollTrigger below).
+  // First frame right away so the canvas can paint. The rest are preloaded
+  // one at a time during browser idle time (requestIdleCallback), and fetched
+  // back-to-back once the scroll approaches the ending (see scrollTrigger).
   frames[0].onload = drawFrame
   frames[0].src = frameUrl(0)
 
-  let remainingFramesQueued = false
-  const queueRemainingFrames = () => {
-    if (remainingFramesQueued) return
-    remainingFramesQueued = true
-    for (let i = 1; i < FRAME_COUNT; i++) {
-      frames[i].decoding = 'async'
-      frames[i].src = frameUrl(i)
+  let nextFrame = 1
+  let urgent = false
+
+  const scheduleIdle = (callback: () => void) => {
+    if ('requestIdleCallback' in window) {
+      window.requestIdleCallback(() => callback(), { timeout: 2000 })
+    } else {
+      setTimeout(callback, 200)
     }
   }
+
+  const loadNextFrame = () => {
+    if (nextFrame >= FRAME_COUNT) return
+    const img = frames[nextFrame++]
+    img.decoding = 'async'
+    img.onload = img.onerror = () =>
+      urgent ? loadNextFrame() : scheduleIdle(loadNextFrame)
+    img.src = frameUrl(nextFrame - 1)
+  }
+
+  scheduleIdle(loadNextFrame)
   /*************************************ENDING CANVAS */
 
   const tl = gsap.timeline({
@@ -96,7 +109,10 @@ const gtaLogoMask = baseUrl('/assets/grand-theft-auto-logo-white-small.svg')
       pin: true,
       pinSpacing: false,
       onUpdate: (self) => {
-        if (self.progress > 0.5) queueRemainingFrames()
+        if (self.progress > 0.5 && !urgent) {
+          urgent = true
+          loadNextFrame()
+        }
       },
     },
   })
