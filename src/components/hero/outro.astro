@@ -1,14 +1,19 @@
 ---
-import { baseUrl } from '@/utils/functions'
-const imgOutro = baseUrl(`/assets/outro.avif`)
+import { baseUrl } from '@/utils/helpers'
+const outroImage = baseUrl('/assets/outro.avif')
 ---
 
-<section class="am-outro">
-  <img class="img-outro" src={imgOutro} alt="ok" />
+<section class="outro">
+  <img
+    class="outro-img"
+    src={outroImage}
+    alt="Vice City coastline at night"
+    decoding="async"
+  />
 </section>
 
 <style>
-  .am-outro {
+  .outro {
     height: 55vh;
     width: 100%;
     position: fixed;
@@ -21,7 +26,7 @@ const imgOutro = baseUrl(`/assets/outro.avif`)
       display: none;
     }
 
-    .img-outro {
+    .outro-img {
       width: 100%;
       height: 100%;
       object-fit: cover;

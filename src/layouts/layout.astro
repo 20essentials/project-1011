@@ -2,7 +2,7 @@
 const title = 'GTA Landing Practice'
 import { Font } from 'astro:assets'
 import '@/styles/global.css'
-import { baseUrl } from '@/utils/functions'
+import { baseUrl } from '@/utils/helpers'
 const favicon = baseUrl('/assets/favicon.webp')
 ---
 
@@ -10,12 +10,10 @@ const favicon = baseUrl('/assets/favicon.webp')
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <Font cssVariable="--font-art-deco" preload />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <Font cssVariable="--font-gta-bold" preload />
     <Font cssVariable="--font-gta-regular" preload />
-    <Font cssVariable="--font-gta-narrow" preload />
-    <link rel="icon" type="image/svg+xml" href={favicon} />
+    <link rel="icon" type="image/webp" href={favicon} />
     <meta name="google" content="notranslate" />
     <title>{title}</title>
   </head>

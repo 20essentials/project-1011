@@ -11,20 +11,6 @@ export default defineConfig({
   fonts: [
     {
       provider: fontProviders.local(),
-      name: 'ArtDeco',
-      cssVariable: '--font-art-deco',
-      options: {
-        variants: [
-          {
-            src: ['./src/assets/fonts/art-deco.woff'],
-            weight: 300,
-            style: 'normal',
-          },
-        ],
-      },
-    },
-    {
-      provider: fontProviders.local(),
       name: 'GtaBold',
       cssVariable: '--font-gta-bold',
       options: {
@@ -46,20 +32,6 @@ export default defineConfig({
           {
             src: ['./src/assets/fonts/gta-regular.woff'],
             weight: 500,
-            style: 'normal',
-          },
-        ],
-      },
-    },
-    {
-      provider: fontProviders.local(),
-      name: 'GtaNarrow',
-      cssVariable: '--font-gta-narrow',
-      options: {
-        variants: [
-          {
-            src: ['./src/assets/fonts/gta-narrow.woff'],
-            weight: 400,
             style: 'normal',
           },
         ],

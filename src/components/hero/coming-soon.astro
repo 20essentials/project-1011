@@ -1,23 +1,38 @@
 ---
-import { baseUrl } from '@/utils/functions'
-const logoGtaVIwithColor = baseUrl('/assets/vi-logo-gta.webp')
-const play5 = baseUrl('/assets/ps5-logo.svg')
-const xbox = baseUrl('/assets/xbox-logo.svg')
+import { baseUrl } from '@/utils/helpers'
+const gtaVILogo = baseUrl('/assets/vi-logo-gta.webp')
+const ps5Logo = baseUrl('/assets/ps5-logo.svg')
+const xboxLogo = baseUrl('/assets/xbox-logo.svg')
 ---
 
-<aside class="coming-container">
+<aside class="coming-soon">
   <section class="coming-content">
-    <img src={logoGtaVIwithColor} alt="Logo Gta" class="coming-logo-v6" />
+    <img
+      src={gtaVILogo}
+      alt="Grand Theft Auto VI logo"
+      class="coming-logo"
+      decoding="async"
+    />
     <h2>COMING MAY 26 2026</h2>
-    <nav class="container-logos">
-      <img src={play5} alt="Play 5 Logo" class="play5" />
-      <img src={xbox} alt="Xbox Series Logo" class="xbox" />
+    <nav class="platform-logos">
+      <img
+        src={ps5Logo}
+        alt="PlayStation 5"
+        class="logo-ps5"
+        decoding="async"
+      />
+      <img
+        src={xboxLogo}
+        alt="Xbox Series X|S"
+        class="logo-xbox"
+        decoding="async"
+      />
     </nav>
   </section>
 </aside>
 
 <style>
-  .coming-container {
+  .coming-soon {
     height: 100vh;
     background-color: var(--global-color-1);
     width: 100%;
@@ -48,7 +63,7 @@ const xbox = baseUrl('/assets/xbox-logo.svg')
       place-items: center;
     }
 
-    .coming-logo-v6 {
+    .coming-logo {
       width: 15vmax;
       margin-bottom: 0.3vmax;
       transform: translateY(-0.5vmax);
@@ -76,16 +91,13 @@ const xbox = baseUrl('/assets/xbox-logo.svg')
       }
     }
 
-    .container-logos {
+    .platform-logos {
       display: flex;
       gap: 2vmax;
       margin-top: 1.5vmax;
 
-      .play5 {
-        height: 1.5vmax;
-      }
-
-      .xbox {
+      .logo-ps5,
+      .logo-xbox {
         height: 1.5vmax;
       }
     }

@@ -1,0 +1,243 @@
+---
+import { baseUrl } from '@/utils/helpers'
+import ComingSoon from '@/components/hero/coming-soon.astro'
+import ViceCityDescription from '@/components/hero/vice-city-description.astro'
+import EndingCanvas from '@/components/hero/ending-canvas.astro'
+import ScrollHint from '@/components/hero/scroll-hint.astro'
+import Outro from '@/components/hero/outro.astro'
+import Sign from '@/components/hero/sign.astro'
+
+const heroImage = baseUrl('/assets/hero-img.webp')
+const heroImageWithLogo = baseUrl('/assets/hero-img-with-logo-white.webp')
+const gtaLogoMask = baseUrl('/assets/grand-theft-auto-logo-white-small.svg')
+---
+
+<section class="hero" style={`--gta-logo-mask: url("${gtaLogoMask}")`}>
+  <div class="hero-mask">
+    <section class="hero-images">
+      <img
+        class="hero-img"
+        src={heroImage}
+        alt="Vice City beachfront at dusk"
+        fetchpriority="high"
+        decoding="async"
+      />
+      <img
+        class="hero-img-and-logo"
+        src={heroImageWithLogo}
+        alt="Vice City beachfront with the Grand Theft Auto logo"
+        decoding="async"
+      />
+    </section>
+  </div>
+  <ComingSoon />
+  <ViceCityDescription />
+  <EndingCanvas />
+  <ScrollHint />
+  <Outro />
+  <Sign />
+</section>
+
+<script>
+  import { $, baseUrl } from '@/utils/helpers'
+  import gsap from 'gsap'
+  import ScrollTrigger from 'gsap/ScrollTrigger'
+
+  gsap.registerPlugin(ScrollTrigger)
+
+  const $heroImages = $<HTMLElement>('.hero-images')
+  const $heroMask = $<HTMLElement>('.hero-mask')
+  const $heroImgWithLogo = $<HTMLElement>('.hero-img-and-logo')
+  const $comingSoon = $<HTMLElement>('.coming-soon')
+  const $viceCity = $<HTMLElement>('.vice-city-description')
+  const $endingCanvas = $<HTMLCanvasElement>('.ending-canvas')
+  const $scrollHint = $<HTMLElement>('.scroll-hint')
+  const $sign = $<HTMLElement>('.sign')
+  const $outro = $<HTMLElement>('.outro')
+
+  /*************************************ENDING CANVAS */
+  const FRAME_COUNT = 89
+  const ctx = $endingCanvas.getContext('2d')!
+  $endingCanvas.width = 1892
+  $endingCanvas.height = 890
+
+  const frameUrl = (index: number) =>
+    baseUrl(
+      `/assets/frames-final/frame-001-ending_${(index + 1).toString().padStart(6, '0')}.jpg`,
+    )
+
+  const frames = Array.from({ length: FRAME_COUNT }, () => new Image())
+  const frameState = { frame: 0 }
+
+  const drawFrame = () => {
+    ctx.clearRect(0, 0, $endingCanvas.width, $endingCanvas.height)
+    ctx.drawImage(frames[frameState.frame], 0, 0)
+  }
+
+  // First frame right away so the canvas can paint; the rest are downloaded
+  // on demand once the scroll approaches the ending (see scrollTrigger below).
+  frames[0].onload = drawFrame
+  frames[0].src = frameUrl(0)
+
+  let remainingFramesQueued = false
+  const queueRemainingFrames = () => {
+    if (remainingFramesQueued) return
+    remainingFramesQueued = true
+    for (let i = 1; i < FRAME_COUNT; i++) {
+      frames[i].decoding = 'async'
+      frames[i].src = frameUrl(i)
+    }
+  }
+  /*************************************ENDING CANVAS */
+
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      scrub: 0.5,
+      pin: true,
+      pinSpacing: false,
+      onUpdate: (self) => {
+        if (self.progress > 0.5) queueRemainingFrames()
+      },
+    },
+  })
+
+  tl.to($heroImages, { scale: 1, opacity: 1 }, 0)
+    .to($heroImgWithLogo, { opacity: 0 })
+    .fromTo(
+      $heroMask,
+      { maskSize: '4000vmax' },
+      { maskSize: '15vmax', duration: 1 },
+      0.1,
+    )
+    .to($heroImages, { opacity: 0 }, 0.75)
+    .to(
+      $comingSoon,
+      {
+        '--y-position-gradient': '40vmax',
+        '--width-gradient': '290vmax',
+        '--height-gradient': '290vmax',
+      },
+      1.1,
+    )
+    .to(
+      $heroMask,
+      {
+        opacity: 0,
+        duration: 0.5,
+      },
+      0.9,
+    )
+    .to(
+      $comingSoon,
+      {
+        '--y-gradient': '-200%',
+        duration: 0.5,
+      },
+      1.4,
+    )
+    .to(
+      $viceCity,
+      {
+        '--y-position-gradient': '40vmax',
+        '--width-gradient': '600vmax',
+        '--height-gradient': '600vmax',
+      },
+      1.8,
+    )
+    .to(
+      $outro,
+      {
+        opacity: 1,
+      },
+      1.2,
+    )
+    .to(
+      [$comingSoon, $outro],
+      {
+        opacity: 0,
+      },
+      1.5,
+    )
+    .to(
+      '.vice-city-text',
+      {
+        scale: 0.95,
+      },
+      '<',
+    )
+    .to(
+      [$viceCity, $scrollHint],
+      {
+        opacity: 0,
+      },
+      2.0,
+    )
+    .to(
+      $endingCanvas,
+      {
+        opacity: 1,
+      },
+      2.3,
+    )
+    .to(
+      frameState,
+      {
+        frame: FRAME_COUNT - 1,
+        snap: 'frame',
+        ease: 'none',
+        onUpdate: drawFrame,
+      },
+      2.3,
+    )
+    .to(
+      $sign,
+      {
+        opacity: 1,
+      },
+      2.7,
+    )
+    .to(
+      '.sign-img',
+      {
+        scale: 1,
+        rotation: 364,
+      },
+      2.7,
+    )
+</script>
+
+<style>
+  .hero {
+    height: 650vh;
+    background-color: var(--global-color-1);
+  }
+
+  .hero-mask {
+    background-color: #fff;
+    mask-image: var(--gta-logo-mask);
+    mask-repeat: no-repeat;
+    mask-position: center 18%;
+    mask-size: 4000vmax;
+    width: 100%;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    overflow: hidden;
+
+    .hero-images {
+      height: 100vh;
+      position: sticky;
+      inset: 0;
+      overflow: hidden;
+      scale: 1.2;
+
+      img {
+        position: sticky;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+</style>
